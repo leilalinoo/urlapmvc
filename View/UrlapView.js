@@ -1,4 +1,5 @@
 import TextUrlapElem from "./TextUrlapELem.js";
+import NumberUrlapElem from "./NumberUrlapElem.js";
 
 class View {
   #leiro = {};
@@ -46,7 +47,9 @@ class View {
           );
           break;
         case "number":
-          this.#numberElem(key);
+          this.#urlapElemList.push(
+            new NumberUrlapElem(key, this.#leiro[key], this.formElem)
+          );
           break;
         default:
           break;
@@ -56,28 +59,7 @@ class View {
     this.formElem.append(txt);
   }
 
-  #numberElem(key) {
-    let txt = "";
-    txt += `
-            <div class="mb-3 mt-3">
-                <label for="${key}" class= "form-label">${
-      this.#leiro[key].megj
-    }:</label>
-                <input  type="${this.#leiro[key].type}" 
-                        class="form-control" 
-                        id="${key}" 
-                        placeholder = "${this.#leiro[key].placeholder}" 
-                        value = "${this.#leiro[key].value}" 
-                        min = "${this.#leiro[key].regex.min}"
-                        max = "${this.#leiro[key].regex.max}">
-                <div class="valid lathato">VALID</div>
-                <div class="invalid lathato">${this.#leiro[key].valid}</div>
-            </div>
-        `;
-
-    this.formElem.append(txt);
-  }
-
+  
   #sajatEsemenykezelo(esemenynev) {
     const esemenyem = new CustomEvent(esemenynev, {detail: this});
     window.dispatchEvent(esemenyem);
